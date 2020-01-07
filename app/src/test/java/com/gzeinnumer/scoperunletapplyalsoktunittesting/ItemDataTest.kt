@@ -4,17 +4,30 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class ItemDataTest{
-    @Test
-    fun testApply(){
-        val item  = ItemData(1,"Zein", "Padang")
+
+    @Test //harus dipastikan tidak null -> use this -> mereturn data(bisa diletakan di variable)
+    fun testRun(){
+        var item  = ItemData(1,"Zein", "Padang")
         println("Before $item")
-        item.apply {
-            this.add = "Jakarta"
+
+        item = kotlin.run {
+            val data  = ItemData(1,"Zein", "Padang")
+            data
         }
         println("After $item")
     }
 
-    @Test
+    @Test //same with "with" -> use this -> tidak bisa mereturn data(tidak bsa diletakan di variable)
+    fun testApply(){
+        val item  = ItemData(1,"Zein", "Padang")
+        println("Before $item")
+        item.apply {
+            add = "Jakarta"
+        }
+        println("After $item")
+    }
+
+    @Test // harus dipastikan tidak ada kemungkinan data null
     fun testWith(){
         val item  = ItemData(1,"Zein", "Padang")
         println("Before $item")
@@ -24,7 +37,7 @@ class ItemDataTest{
         println("After $item")
     }
 
-    @Test
+    @Test //ada kemungkinan data null // pengecekan null
     fun testLet(){
         val item  = ItemData(1,"Zein", "Padang")
         val item2 : ItemData? = null
@@ -44,19 +57,7 @@ class ItemDataTest{
         println("Nama ${item.nama}")
     }
 
-    @Test
-    fun testRun(){
-        var item  = ItemData(1,"Zein", "Padang")
-        println("Before $item")
-
-        item = kotlin.run {
-            val data  = ItemData(1,"Zein", "Padang")
-            data
-        }
-        println("After $item")
-    }
-
-    @Test
+    @Test //bisa ditampung di variable, -> pass IT -> tidak mereturn data -> sama dengan let
     fun testAlso(){
         val item  = ItemData(1,"Zein", "Padang")
 
